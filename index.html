@@ -1,956 +1,552 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Entretenimento VIP - Acesso Exclusivo</title>
-  <style>
-    :root{
-      --bg:#0A0A0A; --card:#131315; --card-lighter:#171717; --accent:#F5C22E; --muted:#9AA0A6;
-      --btn:#25D366; --glass: rgba(255,255,255,0.04);
-      --carousel-arrow-bg: rgba(255,255,255,0.1);
-      --text-primary: #FFFFFF; --text-secondary: #CFCFCF;
-    }
-    *{box-sizing:border-box}
-    body {
-      margin:0; 
-      font-family: 'Inter', 'Segoe UI', 'Roboto', Arial, sans-serif; 
-      background:linear-gradient(180deg, var(--bg) 0%, #0B0B0D 100%); 
-      color:var(--text-primary); 
-      -webkit-font-smoothing:antialiased;
-    }
-    .wrap{max-width:1200px;margin:0 auto;padding:24px;}
-
-    /* Header / Hero */
-    header{display:flex;gap:24px;align-items:center;justify-content:space-between;padding:36px 0}
-    .hero-left{max-width:640px}
-    h1{margin:0;font-size:2.2rem;color:var(--accent);line-height:1.05}
-    p.lead{color:#e6e6e6;font-size:1.05rem;margin:14px 0 22px}
-    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
-    .btn-primary{background:linear-gradient(135deg,#FFD700,#f6a100);color:#000;padding:12px 20px;border-radius:28px;text-decoration:none;font-weight:700}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#fff;padding:12px 20px;border-radius:28px;text-decoration:none}
-
-    /* Form card */
-    .card{background:var(--card-lighter);border-radius:12px;padding:20px;box-shadow:0 12px 30px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.03)}
-    form .row{display:flex;gap:12px;flex-wrap:wrap}
-    label{display:block;font-size:0.9rem;color:var(--muted);margin-bottom:6px}
-    input, select{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff}
-    input::placeholder{color:#8f8f8f}
-    .col-2{flex:1 1 calc(50% - 12px)}
-    .col-1{flex:1 1 100%}
-    .submit-row{display:flex;align-items:center;gap:12px;margin-top:12px}
-    .btn-submit{background:var(--btn);padding:12px 18px;border-radius:12px;border:none;color:#fff;font-weight:700;cursor:pointer}
-    .btn-submit[disabled]{opacity:.6;cursor:not-allowed}
-
-    /* Info / features */
-    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:22px}
-    .feature{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);}
-
-    /* Testimonials area - Versão melhorada baseada na imagem real */
-    .testimonials-carousel-container {
-      position: relative;
-      margin-top: 32px;
-      overflow: hidden;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 50px;
-    }
-
-    .testimonials-carousel {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-      gap: 20px;
-    }
-
-    /* Novo design do testimonial baseado na imagem */
-    .testimonial {
-      flex: 0 0 calc(100% - 20px);
-      max-width: calc(100% - 20px);
-      background: var(--card);
-      padding: 0;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.03);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-      display: flex;
-      overflow: hidden;
-      min-height: 200px;
-      box-sizing: border-box;
-    }
-
-    /* Coluna esquerda - WhatsApp info */
-    .whatsapp-column {
-      background: #0F0F10;
-      width: 120px;
-      display: flex;
-      flex-direction: column;
-      padding: 16px 12px;
-      border-right: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .whatsapp-label {
-      font-size: 11px;
-      color: var(--muted);
-      margin-bottom: auto;
-      font-weight: 400;
-    }
-
-    .phone-masked {
-      color: var(--text-primary);
-      font-size: 13px;
-      font-weight: 600;
-      line-height: 1.3;
-      margin-top: auto;
-    }
-
-    /* Coluna direita - Conteúdo do depoimento */
-    .testimonial-content {
-      flex: 1;
-      padding: 16px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .customer-info {
-      margin-bottom: 12px;
-    }
-
-    .customer-name {
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
-    .customer-location {
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 400;
-    }
-
-    .testimonial-quote {
-      color: var(--text-primary);
-      font-size: 15px;
-      line-height: 1.4;
-      font-weight: 400;
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-
-    .testimonial-quote::before {
-      content: """;
-      font-size: 18px;
-      color: var(--muted);
-      margin-right: 2px;
-    }
-
-    .testimonial-quote::after {
-      content: """;
-      font-size: 18px;
-      color: var(--muted);
-      margin-left: 2px;
-    }
-
-    /* Botões de navegação do carrossel */
-    .carousel-nav-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--carousel-arrow-bg);
-      backdrop-filter: blur(10px);
-      border: none;
-      color: var(--text-primary);
-      font-size: 20px;
-      padding: 12px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 10;
-      transition: all 0.3s ease;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .carousel-nav-btn:hover {
-      background: rgba(255,255,255,0.2);
-      transform: translateY(-50%) scale(1.05);
-    }
-
-    .carousel-nav-btn.prev { left: 10px; }
-    .carousel-nav-btn.next { right: 10px; }
-
-    /* FAQ */
-    .faq{margin-top:28px}
-    .faq-item{background:var(--card-lighter);padding:12px;border-radius:8px;margin-bottom:8px}
-
-    /* Floating WhatsApp */
-    .whatsapp-float{position:fixed;right:18px;bottom:18px;z-index:1400;width:64px;height:64px;border-radius:50%;background:var(--btn);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,0.4)}
-
-    /* Notificações */
-    .notif-container{position:fixed;top:12px;right:12px;z-index:1500;pointer-events:none}
-    .notif{min-width:260px;max-width:340px;background:linear-gradient(180deg,rgba(30,30,33,0.98),rgba(10,10,12,0.98));padding:12px;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,0.4);display:flex;align-items:center;gap:12px;opacity:0;transform:translateY(-8px)}
-    .notif.show{animation:slideIn .45s ease forwards}
-    @keyframes slideIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes slideOut{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-8px)}}
-
-    /* Modals customizados */
-    .custom-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 2000;
-      opacity: 0;
-      transition: all 0.3s ease;
-      padding: 20px;
-      box-sizing: border-box;
-    }
-
-    .custom-modal-overlay.show {
-      display: flex;
-      opacity: 1;
-    }
-
-    .custom-modal {
-      background: linear-gradient(145deg, var(--card), var(--card-lighter));
-      border-radius: 16px;
-      padding: 28px;
-      max-width: 450px;
-      width: 100%;
-      position: relative;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transform: scale(0.7) translateY(50px);
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-
-    .custom-modal-overlay.show .custom-modal {
-      transform: scale(1) translateY(0);
-    }
-
-    .custom-modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .custom-modal-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      margin-right: 12px;
-    }
-
-    .custom-modal-icon.info {
-      background: linear-gradient(135deg, #4A90E2, #357ABD);
-      color: #fff;
-    }
-
-    .custom-modal-icon.warning {
-      background: linear-gradient(135deg, #F5A623, #E8931E);
-      color: #fff;
-    }
-
-    .custom-modal-icon.success {
-      background: linear-gradient(135deg, #7ED321, #5CB85C);
-      color: #fff;
-    }
-
-    .custom-modal-icon.error {
-      background: linear-gradient(135deg, #D0021B, #B81B1B);
-      color: #fff;
-    }
-
-    .custom-modal-title {
-      flex: 1;
-      color: var(--text-primary);
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .custom-modal-close {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 24px;
-      cursor: pointer;
-      padding: 4px;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .custom-modal-close:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text-primary);
-    }
-
-    .custom-modal-body {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 24px;
-    }
-
-    .custom-modal-actions {
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-    }
-
-    .modal-btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      font-size: 0.9rem;
-    }
-
-    .modal-btn-primary {
-      background: linear-gradient(135deg, var(--accent), #D4A017);
-      color: #000;
-    }
-
-    .modal-btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(245, 194, 46, 0.3);
-    }
-
-    .modal-btn-secondary {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .modal-btn-secondary:hover {
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--text-primary);
-    }
-
-    /* Responsive para modais */
-    @media (max-width: 600px) {
-      .custom-modal {
-        padding: 20px;
-        margin: 10px;
-        max-width: calc(100% - 20px);
-      }
-
-      .custom-modal-header {
-        margin-bottom: 16px;
-      }
-
-      .custom-modal-title {
-        font-size: 1.1rem;
-      }
-
-      .custom-modal-actions {
-        flex-direction: column;
-      }
-
-      .modal-btn {
-        width: 100%;
-        padding: 12px;
-      }
-    }
-
-    /* Responsive */
-    @media(max-width:900px){
-      header{flex-direction:column;align-items:flex-start}
-      .hero-left{width:100%}
-      .card{width:100%}
-      .testimonials-carousel-container {
-        max-width: 95%;
-        padding: 0 15px;
-      }
-      .carousel-nav-btn.prev { left: 5px; }
-      .carousel-nav-btn.next { right: 5px; }
-      
-      .whatsapp-column {
-        width: 100px;
-        padding: 12px 8px;
-      }
-      
-      .testimonial-content {
-        padding: 12px 16px;
-      }
-    }
-
-    @media(max-width:600px){
-      .testimonial {
-        flex-direction: column;
-        min-height: auto;
-      }
-      
-      .whatsapp-column {
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 16px;
-        border-right: none;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-      }
-      
-      .testimonial-content {
-        padding: 16px;
-      }
-    }
-
-    /* Utility classes */
-    .muted-note{font-size:0.85rem;color:#bdbdbd;margin-top:8px}
-    .success-msg{color:#9fe29f;font-weight:700}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV ORYNTIS - Soluções Profissionais de Streaming</title>
+    <meta name="description" content="TV ORYNTIS oferece soluções completas para streaming profissional com qualidade superior e suporte especializado.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'oryntis-orange': '#F5A623',
+                        'oryntis-navy': '#1E3A5F',
+                        'oryntis-light': '#F7B733',
+                        'oryntis-dark': '#E67E22',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Customizado -->
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <div class="notif-container" id="notifContainer"></div>
+<body class="bg-white text-gray-900">
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold logo-text">TV ORYNTIS</div>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="hover:text-oryntis-orange transition-colors font-medium">Início</a>
+                    <a href="#games-of-the-day" class="hover:text-oryntis-orange transition-colors font-medium">Jogos do dia</a>
+                    <a href="#Destaque" class="hover:text-oryntis-orange transition-colors font-medium">Destaque</a>
+                    <a href="#testimonials" class="hover:text-oryntis-orange transition-colors font-medium">Depoimentos</a>
+                    <a href="#contact" class="hover:text-oryntis-orange transition-colors font-medium">Contato</a>
+                </nav>
 
-  <div class="wrap">
-    <header>
-      <div class="hero-left">
-        <h1>🎬 Acesso VIP — poucas vagas</h1>
-        <p class="lead">Tenha entretenimento direto na sua tela com a sensação de alívio: tudo funcionando, sem complicação. Preencha os seus dados e garante um teste exclusivo.</p>
-        <div class="cta-row">
-          <a class="btn-primary" href="#form" id="testNowBtn">Quero testar agora</a>
-          <a class="btn-ghost" href="#testimonials">Ver depoimentos</a>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2">
+                    <div class="w-6 h-6 flex flex-col justify-center items-center space-y-1.5">
+                        <span class="block h-0.5 w-6 bg-gray-900 transition-all duration-300"></span>
+                        <span class="block h-0.5 w-6 bg-gray-900 transition-all duration-300"></span>
+                        <span class="block h-0.5 w-6 bg-gray-900 transition-all duration-300"></span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden transition-all duration-300">
+                <nav class="pt-4 pb-2 space-y-2 bg-white rounded-lg mt-2 shadow-lg">
+                    <a href="#home" class="block py-3 px-4 hover:text-oryntis-orange hover:bg-orange-50 transition-colors font-medium rounded">Início</a>
+                    <a href="#games-of-the-day" class="block py-3 px-4 hover:text-oryntis-orange hover:bg-orange-50 transition-colors font-medium rounded">Jogos do dia</a>
+                    <a href="#Destaque" class="block py-3 px-4 hover:text-oryntis-orange hover:bg-orange-50 transition-colors font-medium rounded">Destaque</a>
+                    <a href="#testimonials" class="block py-3 px-4 hover:text-oryntis-orange hover:bg-orange-50 transition-colors font-medium rounded">Depoimentos</a>
+                    <a href="#contact" class="block py-3 px-4 hover:text-oryntis-orange hover:bg-orange-50 transition-colors font-medium rounded">Contato</a>
+                </nav>
+            </div>
         </div>
-      </div>
-
-      <!-- Card do formulário -->
-      <div class="card" style="min-width:320px;max-width:420px" id="form">
-        <form id="leadForm" autocomplete="off" novalidate>
-          <div class="row">
-            <div class="col-2">
-              <label for="name">Nome*</label>
-              <input id="name" name="name" type="text" placeholder="Seu nome" required>
-            </div>
-            <div class="col-2">
-              <label for="lastname">Sobrenome*</label>
-              <input id="lastname" name="lastname" type="text" placeholder="Sobrenome" required>
-            </div>
-
-            <div class="col-2">
-              <label for="age">Idade*</label>
-              <input id="age" name="age" type="number" min="12" max="120" placeholder="Ex: 28" required>
-            </div>
-            <div class="col-2">
-              <label for="phone">Telefone*</label>
-              <input id="phone" name="phone" type="tel" placeholder="(11) 9xxxx-xxxx" required>
-            </div>
-
-            <div class="col-1">
-              <label for="email">Email*</label>
-              <input id="email" name="email" type="email" placeholder="seu@email.com" required>
-            </div>
-          </div>
-
-          <div class="submit-row">
-            <button type="submit" class="btn-submit" id="submitBtn">Quero fazer um teste</button>
-            <div id="formMsg" class="muted-note" aria-live="polite"></div>
-          </div>
-
-          <div class="muted-note">Ao clicar, você será direcionado ao WhatsApp com seus dados. Não compartilhamos suas informações com terceiros.</div>
-        </form>
-      </div>
     </header>
 
-    <!-- Features -->
-    <section>
-      <div class="features">
-        <div class="feature"><strong>📺 Conteúdo em HD</strong><div class="small">Assista com qualidade e sem travamentos.</div></div>
-        <div class="feature"><strong>⚡ Ativação rápida</strong><div class="small">Suporte para tirar dúvidas e ativar em minutos.</div></div>
-        <div class="feature"><strong>👨‍👩‍👧 Para família</strong><div class="small">Perfis e canais para todas as idades.</div></div>
-        <div class="feature"><strong>🔒 Privacidade</strong><div class="small">Seus dados protegidos e atendimento dedicado.</div></div>
-      </div>
-    </section>
-
-    <!-- Testimonials com visual melhorado baseado na imagem real -->
-    <section id="testimonials">
-      <h2 style="color:var(--accent)">Depoimentos reais</h2>
-      <p class="muted-note">Clientes que aproveitaram a primeira assinatura com desconto e hoje recomendam para família e amigos.</p>
-
-      <div class="testimonials-carousel-container">
-        <div class="testimonials-carousel" id="testimonialsCarousel">
-          
-          <!-- Depoimento da Fernanda R. (baseado na imagem real) -->
-          <div class="testimonial">
-            <div class="whatsapp-column">
-              <div class="whatsapp-label">WhatsApp</div>
-              <div class="phone-masked">+55 19 9****-<br>****</div>
-            </div>
-            <div class="testimonial-content">
-              <div class="customer-info">
-                <div class="customer-name">Fernanda R.</div>
-                <div class="customer-location">Campinas, SP</div>
-              </div>
-              <div class="testimonial-quote">Ganhei desconto porque fui indicada por um amigo. Uso há 2 meses, ótimo suporte e recomendo para toda família.</div>
-            </div>
-          </div>
-
-          <!-- Testimonial 2 -->
-          <div class="testimonial">
-            <div class="whatsapp-column">
-              <div class="whatsapp-label">WhatsApp</div>
-              <div class="phone-masked">+55 11 9****-<br>****</div>
-            </div>
-            <div class="testimonial-content">
-              <div class="customer-info">
-                <div class="customer-name">Marcos A.</div>
-                <div class="customer-location">São Paulo, SP</div>
-              </div>
-              <div class="testimonial-quote">Comprei com o desconto da 1ª assinatura — depois de 3 meses nunca deu problema. Indiquei para meu irmão e minha mãe!</div>
-            </div>
-          </div>
-
-          <!-- Testimonial 3 -->
-          <div class="testimonial">
-            <div class="whatsapp-column">
-              <div class="whatsapp-label">WhatsApp</div>
-              <div class="phone-masked">+55 31 9****-<br>****</div>
-            </div>
-            <div class="testimonial-content">
-              <div class="customer-info">
-                <div class="customer-name">Carla M.</div>
-                <div class="customer-location">Belo Horizonte, MG</div>
-              </div>
-              <div class="testimonial-quote">Promoção da 1ª assinatura valeu a pena. Indiquei para meu primo e ele adorou. Suporte sempre disponível.</div>
-            </div>
-          </div>
-
-          <!-- Testimonial 4 -->
-          <div class="testimonial">
-            <div class="whatsapp-column">
-              <div class="whatsapp-label">WhatsApp</div>
-              <div class="phone-masked">+55 41 9****-<br>****</div>
-            </div>
-            <div class="testimonial-content">
-              <div class="customer-info">
-                <div class="customer-name">Roberto S.</div>
-                <div class="customer-location">Curitiba, PR</div>
-              </div>
-              <div class="testimonial-quote">Depois que meu tio indicou, fechei. Funciona bem e o suporte sempre responde.</div>
-            </div>
-          </div>
-
-          <!-- Testimonial 5 -->
-          <div class="testimonial">
-            <div class="whatsapp-column">
-              <div class="whatsapp-label">WhatsApp</div>
-              <div class="phone-masked">+55 11 9****-<br>****</div>
-            </div>
-            <div class="testimonial-content">
-              <div class="customer-info">
-                <div class="customer-name">Ana P.</div>
-                <div class="customer-location">São Paulo, SP</div>
-              </div>
-              <div class="testimonial-quote">Antes eu pagava mais de 400 reais de tv a cabo e hoje pago 34,90 muito feliz</div>
-            </div>
-          </div>
-
-          <!-- Testimonial 6 -->
-          <div class="testimonial">
-            <div class="whatsapp-column">
-              <div class="whatsapp-label">WhatsApp</div>
-              <div class="phone-masked">+55 21 9****-<br>****</div>
-            </div>
-            <div class="testimonial-content">
-              <div class="customer-info">
-                <div class="customer-name">Carlos D.</div>
-                <div class="customer-location">Rio de Janeiro, RJ</div>
-              </div>
-              <div class="testimonial-quote">Hoje eu consigo pagar outras contas só de tá economizando com seu aplicativo de filmes</div>
-            </div>
-          </div>
-
-          <!-- Testimonial 7 -->
-          <div class="testimonial">
-            <div class="whatsapp-column">
-              <div class="whatsapp-label">WhatsApp</div>
-              <div class="phone-masked">+55 31 9****-<br>****</div>
-            </div>
-            <div class="testimonial-content">
-              <div class="customer-info">
-                <div class="customer-name">Juliana L.</div>
-                <div class="customer-location">Belo Horizonte, MG</div>
-              </div>
-              <div class="testimonial-quote">Meu filho passa o dia todo assistindo desenho adorei</div>
-            </div>
-          </div>
-
-          <!-- Testimonial 8 -->
-          <div class="testimonial">
-            <div class="whatsapp-column">
-              <div class="whatsapp-label">WhatsApp</div>
-              <div class="phone-masked">+55 41 9****-<br>****</div>
-            </div>
-            <div class="testimonial-content">
-              <div class="customer-info">
-                <div class="customer-name">Patrícia G.</div>
-                <div class="customer-location">Curitiba, PR</div>
-              </div>
-              <div class="testimonial-quote">Agora consigo limpar a casa, minha filha fica quietinha vendo os desenhos dela</div>
-            </div>
-          </div>
-
+    <!-- Hero Section -->
+ <section id="home" class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 items-start">
+      
+      <!-- Coluna 1: Imagem (agora primeiro no HTML, à esquerda em desktop, em cima em mobile) -->
+      <div class="relative order-1">
+        <div class="aspect-video bg-gradient-to-br from-oryntis-orange/20 to-oryntis-navy/20 rounded-2xl overflow-hidden shadow-2xl">
+          <img 
+            src="/img/Logo-tvoryntis.png" 
+            alt="Setup de streaming profissional TV ORYNTIS" 
+            class="w-full h-full object-cover"
+          />
         </div>
-        <button class="carousel-nav-btn prev" id="prevTestimonial">‹</button>
-        <button class="carousel-nav-btn next" id="nextTestimonial">›</button>
+        <!-- Elementos decorativos -->
+        <div class="absolute -top-4 -right-4 w-24 h-24 bg-gradient-to-br from-oryntis-orange to-oryntis-light rounded-full opacity-20"></div>
+        <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-gradient-to-br from-oryntis-navy to-oryntis-orange rounded-full opacity-10"></div>
       </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq">
-      <h3 style="color:var(--accent)">Dúvidas</h3>
-      <div class="faq-item"><strong>Funciona na TV?</strong><div class="small">Sim — funciona em Smart TVs, celular e computador.</div></div>
-      <div class="faq-item"><strong>Preciso cancelar depois do teste?</strong><div class="small">Você escolhe. O teste dá a opção de avaliar antes de contratar o plano.</div></div>
-      <div class="faq-item"><strong>Como é o suporte?</strong><div class="small">Atendimento via WhatsApp com suporte dedicado para tirar dúvidas.</div></div>
-    </section>
-
-    <footer style="margin-top:36px;padding:28px;text-align:center;color:#bbb">© 2025 - Comunidade Exclusiva de Entretenimento Digital</footer>
+      
+      <!-- Coluna 2: Texto (título, descrição, botões e stats) -->
+      <div class="space-y-8 order-2">
+        <div class="space-y-4">
+          <h1 class="hero-title text-4xl md:text-6xl font-bold leading-tight text-gray-900">
+            Transforme sua <span class="text-oryntis-orange">experiência</span> de streaming
+          </h1>
+          <p class="text-xl text-gray-600 max-w-2xl leading-relaxed">
+            A <strong>TV ORYNTIS</strong> oferece soluções completas para streaming profissional. 
+            Qualidade superior, tecnologia avançada e suporte especializado para levar seu conteúdo ao próximo nível.
+          </p>
+        </div>
+        
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#games-of-the-day" class="btn-secondary inline-flex items-center justify-center px-8 py-4 rounded-lg text-lg font-semibold">
+            Jogos do Dia
+          </a>
+          <a href="#Destaque" class="btn-secondary inline-flex items-center justify-center px-8 py-4 rounded-lg text-lg font-semibold">
+            Ver Destaque
+          </a>
+        </div>
+        
+        <div id="stats" class="grid grid-cols-3 gap-8 pt-8">
+          <div class="text-center">
+            <div id="clientesSatisfeitos" class="stat-number text-2xl md:text-3xl font-bold">150000</div>
+            <div class="text-sm text-gray-600 font-medium">Clientes Satisfeitos</div>
+          </div>
+          <div class="text-center">
+            <div id="clienteTestando" class="stat-number text-2xl md:text-3xl font-bold">99</div>
+            <div class="text-sm text-gray-600 font-medium">Cliente testando</div>
+          </div>
+          <div class="text-center">
+            <div id="indicacoes" class="stat-number text-2xl md:text-3xl font-bold">240</div>
+            <div class="text-sm text-gray-600 font-medium">Indicações</div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
   </div>
+</section>
 
-  <!-- botão WhatsApp fixo -->
-  <a class="whatsapp-float" id="whatsFloat" href="#" target="_blank" title="Falar no WhatsApp">💬</a>
 
-  <!-- Modais customizados -->
-  <div class="custom-modal-overlay" id="customModalOverlay">
-    <div class="custom-modal" id="customModal">
-      <div class="custom-modal-header">
-        <div style="display: flex; align-items: center;">
-          <div class="custom-modal-icon" id="modalIcon">ℹ</div>
-          <h3 class="custom-modal-title" id="modalTitle">Informação</h3>
-        </div>
-        <button class="custom-modal-close" id="modalClose">×</button>
-      </div>
-      <div class="custom-modal-body" id="modalBody">
-        Mensagem do modal
-      </div>
-      <div class="custom-modal-actions" id="modalActions">
-        <button class="modal-btn modal-btn-primary" id="modalOkBtn">OK</button>
-      </div>
+<!-- Jogos do Dia Section -->
+<section id="games-of-the-day" class="py-20 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="text-center space-y-4 mb-16">
+      <h2 class="text-3xl md:text-5xl font-bold text-white">Jogos do Dia</h2>
+      <h2 class="text-2xl md:text-3xl font-bold text-white">Peça seu teste gratis</h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+        Acompanhe todos os jogos de futebol e lutas ao vivo na <strong>TV ORYNTIS</strong>. O melhor do esporte está aqui!
+      </p>
+    </div>
+
+    <!-- Grid 3x2 fotos -->
+    <div class="grid gap-6 justify-center"
+      style="grid-template-columns: repeat(3, 1fr); max-width: 1200px; margin-left: auto; margin-right: auto;">
+      
+      <!-- Cada imagem envolvida em link para modal -->
+      <a href="#" class="game-image-link" data-src="/img/Jogo-do-dia.jpg" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/Jogo-do-dia.jpg" alt="Jogo do Dia 1"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
+      
+      <a href="#" class="game-image-link" data-src="/img/jogo-001.jpg" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/jogo-001.jpg" alt="Jogo do Dia 2"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
+      
+      <a href="#" class="game-image-link" data-src="/img/jogo-002.jpg" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/jogo-002.jpg" alt="Jogo do Dia 3"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
+      
+      <a href="#" class="game-image-link" data-src="/img/jogo-003.jpg" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/jogo-003.jpg" alt="Jogo do Dia 4"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
+      
+      <a href="#" class="game-image-link" data-src="/img/jogo-004.jpg" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/jogo-004.jpg" alt="UFC Fight Night"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
+      
+      <a href="#" class="game-image-link" data-src="/img/jogo-005.jpg" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/jogo-005.jpg" alt="Resumo Geral dos Jogos"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
     </div>
   </div>
 
-  <script>
-    /* ====== CONFIG ====== */
-    const PHONE_WHATSAPP = '5521981174390'; // <<== coloque seu número aqui (DDI+DDD+numero)
-    const DISPLAY_WHATSAPP_ON_SUBMIT = true; // abre whatsapp quando o formulário é enviado
+  <!-- Modal para imagem fullscreen -->
+  <div id="image-modal" aria-hidden="true" tabindex="-1" role="dialog"
+    style="display:none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center;">
+    <button id="close-modal" aria-label="Fechar imagem"
+      style="position: absolute; top: 20px; right: 20px; font-size: 2rem; color: white; background: none; border: none; cursor: pointer;">&times;</button>
+    <img id="modal-image" src="" alt="Imagem em tela cheia" style="max-width: 90vw; max-height: 90vh; border-radius: 12px;" />
+  </div>
+</section>
 
-    // tempo das notificações
-    const NOTIF_DISPLAY = 3000;
-    const NOTIF_GAP = 4000;
+<script>
+// Abrir modal com imagem
+document.querySelectorAll('.game-image-link').forEach(link => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const src = this.getAttribute('data-src');
+    modalImage.src = src;
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    modal.focus();
+  });
+});
 
-    /* ====== SISTEMA DE MODAIS CUSTOMIZADOS ====== */
-    const modalOverlay = document.getElementById('customModalOverlay');
-    const modal = document.getElementById('customModal');
-    const modalIcon = document.getElementById('modalIcon');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalBody = document.getElementById('modalBody');
-    const modalActions = document.getElementById('modalActions');
-    const modalClose = document.getElementById('modalClose');
-    const modalOkBtn = document.getElementById('modalOkBtn');
+// Fechar modal
+document.getElementById('close-modal').addEventListener('click', function () {
+  const modal = document.getElementById('image-modal');
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+  document.activeElement.blur(); // Remove foco
+});
 
-    // Função para mostrar modal customizado
-    function showCustomModal(options) {
-      const {
-        type = 'info',
-        title = 'Informação',
-        message = '',
-        showCancel = false,
-        confirmText = 'OK',
-        cancelText = 'Cancelar',
-        onConfirm = null,
-        onCancel = null
-      } = options;
+// Fechar modal ao clicar fora da imagem
+document.getElementById('image-modal').addEventListener('click', function (e) {
+  if (e.target === this) {
+    this.style.display = 'none';
+    this.setAttribute('aria-hidden', 'true');
+  }
+});
 
-      // Configurar ícone e classe baseado no tipo
-      modalIcon.className = `custom-modal-icon ${type}`;
+// Fechar modal ao pressionar ESC
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('image-modal');
+    if (modal.style.display === 'flex') {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    }
+  }
+});
+</script>
+
+    <!-- Filmes e Series Section -->
+<section id="Destaque" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center space-y-4 mb-16">
+            <h2 class="text-3xl md:text-5xl font-bold text-gray-900">Filmes e Séries em Destaque</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Descubra nossa seleção de filmes e séries, disponíveis para streaming em alta qualidade na <strong>TV ORYNTIS</strong>
+            </p>
+        </div>
+
+    <!-- Grid 3x2 fotos -->
+    <div class="grid gap-6 justify-center"
+      style="grid-template-columns: repeat(3, 1fr); max-width: 1200px; margin-left: auto; margin-right: auto;">
       
-      switch(type) {
-        case 'warning':
-          modalIcon.textContent = '⚠';
-          break;
-        case 'error':
-          modalIcon.textContent = '✕';
-          break;
-        case 'success':
-          modalIcon.textContent = '✓';
-          break;
-        case 'info':
-        default:
-          modalIcon.textContent = 'ℹ';
-          break;
-      }
-
-      // Configurar conteúdo
-      modalTitle.textContent = title;
-      modalBody.textContent = message;
-
-      // Configurar botões
-      modalActions.innerHTML = '';
+      <!-- Cada imagem envolvida em link para modal -->
+      <a href="#" class="game-image-link" data-src="/img/filme001.webp" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/filme001.webp" alt="Jogo do Dia 1"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
       
-      if (showCancel) {
-        const cancelBtn = document.createElement('button');
-        cancelBtn.className = 'modal-btn modal-btn-secondary';
-        cancelBtn.textContent = cancelText;
-        cancelBtn.onclick = () => {
-          hideCustomModal();
-          if (onCancel) onCancel();
-        };
-        modalActions.appendChild(cancelBtn);
-      }
-
-      const confirmBtn = document.createElement('button');
-      confirmBtn.className = 'modal-btn modal-btn-primary';
-      confirmBtn.textContent = confirmText;
-      confirmBtn.onclick = () => {
-        hideCustomModal();
-        if (onConfirm) onConfirm();
-      };
-      modalActions.appendChild(confirmBtn);
-
-      // Mostrar modal
-      modalOverlay.style.display = 'flex';
-      setTimeout(() => {
-        modalOverlay.classList.add('show');
-      }, 10);
-
-      // Focus no botão de confirmar
-      setTimeout(() => {
-        confirmBtn.focus();
-      }, 350);
-    }
-
-    // Função para esconder modal
-    function hideCustomModal() {
-      modalOverlay.classList.remove('show');
-      setTimeout(() => {
-        modalOverlay.style.display = 'none';
-      }, 300);
-    }
-
-    // Event listeners para fechar modal
-    modalClose.addEventListener('click', hideCustomModal);
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) {
-        hideCustomModal();
-      }
-    });
-
-    // Fechar modal com ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modalOverlay.classList.contains('show')) {
-        hideCustomModal();
-      }
-    });
-
-    // Substituir função alert padrão
-    function customAlert(message, type = 'info', title) {
-      let modalTitle = title;
+      <a href="#" class="game-image-link" data-src="/img/filme002.webp" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/filme002.webp" alt="Jogo do Dia 2"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
       
-      if (!modalTitle) {
-        switch(type) {
-          case 'warning':
-            modalTitle = 'Atenção';
-            break;
-          case 'error':
-            modalTitle = 'Erro';
-            break;
-          case 'success':
-            modalTitle = 'Sucesso';
-            break;
-          case 'info':
-          default:
-            modalTitle = 'Informação';
-            break;
-        }
-      }
-
-      showCustomModal({
-        type: type,
-        title: modalTitle,
-        message: message
-      });
-    }
-
-    /* ====== FORMULÁRIO ====== */
-    const form = document.getElementById('leadForm');
-    const submitBtn = document.getElementById('submitBtn');
-    const formMsg = document.getElementById('formMsg');
-
-    function validateForm() {
-      const name = form.name.value.trim();
-      const lastname = form.lastname.value.trim();
-      const age = form.age.value.trim();
-      const phone = form.phone.value.trim();
-      const email = form.email.value.trim();
-
-      if (!name || !lastname || !age || !phone || !email) {
-        return { ok:false, message:'Preencha todos os campos obrigatórios.' };
-      }
-      if (Number(age) < 12 || Number(age) > 120) {
-        return { ok:false, message:'Informe uma idade válida.' };
-      }
-      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRe.test(email)) {
-        return { ok:false, message:'Informe um e-mail válido.' };
-      }
-      return { ok:true };
-    }
-
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      formMsg.textContent = '';
-      const v = validateForm();
-      if (!v.ok) {
-        // Mostrar modal customizado se os campos não estiverem preenchidos
-        customAlert('Por favor, preencha todos os dados obrigatórios antes de continuar.', 'warning', 'Dados Obrigatórios');
-        formMsg.textContent = v.message;
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Abrindo WhatsApp...';
-
-      const name = encodeURIComponent(form.name.value.trim());
-      const lastname = encodeURIComponent(form.lastname.value.trim());
-      const age = encodeURIComponent(form.age.value.trim());
-      const email = encodeURIComponent(form.email.value.trim());
-      const phone = encodeURIComponent(form.phone.value.trim());
-
-      const message = encodeURIComponent(
-        `Nome: ${decodeURIComponent(name)}\nSobrenome: ${decodeURIComponent(lastname)}\nIdade: ${decodeURIComponent(age)}\nEmail: ${decodeURIComponent(email)}\nTelefone: ${decodeURIComponent(phone)}\nFonte: Landing VIP`
-      );
-
-      const url = `https://api.whatsapp.com/send?phone=${PHONE_WHATSAPP}&text=${message}`;
-
-      if (DISPLAY_WHATSAPP_ON_SUBMIT) {
-        window.open(url, '_blank');
-      } else {
-        window.location.href = url;
-      }
-
-      formMsg.innerHTML = '<span class="success-msg">Leads enviados — aguarde contato no WhatsApp.</span>';
-      submitBtn.textContent = 'Enviado!';
-
-      setTimeout(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Quero fazer um teste';
-      }, 6000);
-    });
-
-    /* ====== Floating WhatsApp link ====== */
-    document.getElementById('whatsFloat').href = `https://api.whatsapp.com/send?phone=${PHONE_WHATSAPP}&text=${encodeURIComponent('Olá! Quero mais informações.')}`;
-
-    /* ====== Modal para botão "Quero testar agora" ====== */
-    document.getElementById('testNowBtn').addEventListener('click', function(e) {
-      e.preventDefault();
-      customAlert('Para fazer o teste, você precisa primeiro fazer o cadastro preenchendo o formulário abaixo.', 'info', 'Cadastro Necessário');
+      <a href="#" class="game-image-link" data-src="/img/filme003.webp" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/filme003.webp" alt="Jogo do Dia 3"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
       
-      // Rolar suavemente para o formulário após fechar o modal
-      setTimeout(() => {
-        document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
-      }, 500);
-    });
+      <a href="#" class="game-image-link" data-src="/img/filme004.webp" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/filme004.webp" alt="Jogo do Dia 4"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
+      
+      <a href="#" class="game-image-link" data-src="/img/filme005.webp" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/filme005.webp" alt="UFC Fight Night"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
+      
+      <a href="#" class="game-image-link" data-src="/img/filme006.webp" aria-label="Clique para ver a imagem em tela cheia">
+        <img src="/img/filme006.webp" alt="Resumo Geral dos Jogos"
+          style="width: 100%; height: auto; aspect-ratio: 400 / 600; object-fit: contain; border-radius: 12px;" />
+      </a>
+    </div>
+  </div>
 
-    /* ====== Lógica do Carrossel de Depoimentos (melhorada) ====== */
-    const carousel = document.getElementById('testimonialsCarousel');
-    const testimonials = carousel.querySelectorAll('.testimonial');
-    const prevBtn = document.getElementById('prevTestimonial');
-    const nextBtn = document.getElementById('nextTestimonial');
+  <!-- Modal para imagem fullscreen -->
+  <div id="image-modal" aria-hidden="true" tabindex="-1" role="dialog"
+    style="display:none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.9); align-items: center; justify-content: center;">
+    <button id="close-modal" aria-label="Fechar imagem"
+      style="position: absolute; top: 20px; right: 20px; font-size: 2rem; color: white; background: none; border: none; cursor: pointer;">&times;</button>
+    <img id="modal-image" src="" alt="Imagem em tela cheia" style="max-width: 90vw; max-height: 90vh; border-radius: 12px;" />
+  </div>
+</section>
 
-    let currentIndex = 0;
-    const totalTestimonials = testimonials.length;
+<script>
+// Abrir modal com imagem
+document.querySelectorAll('.game-image-link').forEach(link => {
+  link.addEventListener('click', function (e) {
+    e.preventDefault();
+    const modal = document.getElementById('image-modal');
+    const modalImage = document.getElementById('modal-image');
+    const src = this.getAttribute('data-src');
+    modalImage.src = src;
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    modal.focus();
+  });
+});
 
-    function updateCarousel() {
-      const itemWidth = testimonials[0].offsetWidth + 20; // width + gap
-      const offset = -currentIndex * itemWidth;
-      carousel.style.transform = `translateX(${offset}px)`;
+// Fechar modal
+document.getElementById('close-modal').addEventListener('click', function () {
+  const modal = document.getElementById('image-modal');
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden', 'true');
+  document.activeElement.blur(); // Remove foco
+});
+
+// Fechar modal ao clicar fora da imagem
+document.getElementById('image-modal').addEventListener('click', function (e) {
+  if (e.target === this) {
+    this.style.display = 'none';
+    this.setAttribute('aria-hidden', 'true');
+  }
+});
+
+// Fechar modal ao pressionar ESC
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('image-modal');
+    if (modal.style.display === 'flex') {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
     }
+  }
+});
+</script>
 
-    function showNextTestimonial() {
-      currentIndex = (currentIndex + 1) % totalTestimonials;
-      updateCarousel();
-    }
 
-    function showPrevTestimonial() {
-      currentIndex = (currentIndex - 1 + totalTestimonials) % totalTestimonials;
-      updateCarousel();
-    }
+    
 
-    prevBtn.addEventListener('click', showPrevTestimonial);
-    nextBtn.addEventListener('click', showNextTestimonial);
 
-    // Inicializa o carrossel
-    updateCarousel();
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center space-y-4 mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-gray-900">O que nossos clientes dizem</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Depoimentos reais de clientes satisfeitos com os serviços da <strong>TV ORYNTIS</strong>
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Depoimento 1 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                    <div class="flex text-oryntis-orange space-x-1 mb-4">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                    <p class="text-gray-600 italic mb-6 leading-relaxed">
+                        "A TV ORYNTIS transformou completamente meu streaming! O serviço é excepcional, 
+                        a qualidade melhorou drasticamente e o suporte técnico é impecável. Recomendo demais!"
+                    </p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-oryntis-orange to-oryntis-light rounded-full flex items-center justify-center">
+                            <span class="font-bold text-white">M</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-900">Marina Silva</div>
+                            <div class="text-sm text-gray-600">Streamer de Jogos</div>
+                        </div>
+                    </div>
+                </div>
 
-    // Autoplay
-    const AUTOPLAY_INTERVAL = 4000; // 4 segundos
-    let autoplayIntervalId;
+                <!-- Depoimento 2 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                    <div class="flex text-oryntis-orange space-x-1 mb-4">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                    <p class="text-gray-600 italic mb-6 leading-relaxed">
+                        "Profissionalismo e qualidade incomparáveis! A TV ORYNTIS montou o estúdio perfeito 
+                        para meus cursos online. As aulas ficaram muito mais envolventes e a audiência cresceu 300%!"
+                    </p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-oryntis-navy to-oryntis-orange rounded-full flex items-center justify-center">
+                            <span class="font-bold text-white">R</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-900">Prof. Ricardo</div>
+                            <div class="text-sm text-gray-600">Educador Online</div>
+                        </div>
+                    </div>
+                </div>
 
-    function startAutoplay() {
-      autoplayIntervalId = setInterval(showNextTestimonial, AUTOPLAY_INTERVAL);
-    }
+                <!-- Depoimento 3 -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg">
+                    <div class="flex text-oryntis-orange space-x-1 mb-4">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                    <p class="text-gray-600 italic mb-6 leading-relaxed">
+                        "Investimento que vale cada centavo! Nossa empresa agora tem eventos online com 
+                        qualidade de TV profissional. A TV ORYNTIS superou todas nossas expectativas. Recomendo 1000%!"
+                    </p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-gradient-to-r from-oryntis-light to-oryntis-dark rounded-full flex items-center justify-center">
+                            <span class="font-bold text-white">C</span>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-gray-900">Carlos Mendes</div>
+                            <div class="text-sm text-gray-600">CEO TechCorp</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    function stopAutoplay() {
-      clearInterval(autoplayIntervalId);
-    }
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-oryntis-orange/10 via-white to-oryntis-navy/5">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-4xl mx-auto space-y-8">
+                <h2 class="text-3xl md:text-5xl font-bold text-gray-900">
+                    Pronto para transformar seu streaming?
+                </h2>
+                <p class="text-xl text-gray-600 leading-relaxed">
+                    Entre em contato com a <strong>TV ORYNTIS</strong> agora e descubra como podemos elevar 
+                    a qualidade do seu conteúdo ao próximo nível profissional
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#contact" onclick="openWhatsApp()" class="btn-primary inline-flex items-center justify-center px-8 py-4 rounded-lg text-lg font-semibold">
+                        Falar no WhatsApp
+                    </a>
+                    <a href="#contact" class="btn-secondary inline-flex items-center justify-center px-8 py-4 rounded-lg text-lg font-semibold">
+                        Solicitar Orçamento
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    startAutoplay();
+    <!-- Footer -->
+    <footer id="contact" class="py-16 bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <div class="text-2xl font-bold bg-gradient-to-r from-oryntis-orange to-oryntis-light bg-clip-text text-transparent">
+                        TV ORYNTIS
+                    </div>
+                    <p class="text-gray-400 leading-relaxed">
+                        Especialistas em soluções de streaming profissional. 
+                        Transformamos sua paixão em conteúdo de qualidade superior.
+                    </p>
+                </div>
+                
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-oryntis-orange">Jogos do dia</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="hover:text-oryntis-orange transition-colors cursor-pointer">Destaque</li>
+                        <li class="hover:text-oryntis-orange transition-colors cursor-pointer">Filmes e series</li>
+                        <li class="hover:text-oryntis-orange transition-colors cursor-pointer">Suporte 24/7</li>
+                        <li class="hover:text-oryntis-orange transition-colors cursor-pointer">Area do cliente</li>
+                    </ul>
+                </div>
+                
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-oryntis-orange">Contato</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Email: tvoryntis@gmail.com</li>
+                        <li>WhatsApp: (21) 97489-4474</li>
+                        <li>WhatsApp: (21) 98117-4390</li>
+                    </ul>
+                </div>
+                
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-oryntis-orange">Redes Sociais</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-oryntis-orange transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-oryntis-orange transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-oryntis-orange transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.098.119.112.225.085.348-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.758-1.378l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001 12.017.001z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/tvoryntis/" class="text-gray-400 hover:text-oryntis-orange transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
+                <p>&copy; 2024 TV ORYNTIS. Todos os direitos reservados. Desenvolvido com 💙 para streamers profissionais.</p>
+            </div>
+        </div>
+    </footer>
 
-    const carouselContainer = document.querySelector('.testimonials-carousel-container');
-    carouselContainer.addEventListener('mouseenter', stopAutoplay);
-    carouselContainer.addEventListener('mouseleave', startAutoplay);
+    <!-- WhatsApp Float Button -->
+    <a href="#" onclick="openWhatsApp(); return false;" class="whatsapp-float">
+        <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.085"/>
+        </svg>
+    </a>
 
-    window.addEventListener('resize', updateCarousel);
-
-    /* ====== Notificações ====== */
-    (function demoNotification(){
-      const container = document.getElementById('notifContainer');
-      if(!container) return;
-      const sample = [
-        {name:'Lucas Silva', city:'Campinas - SP', label:'assinou'},
-        {name:'Mariana Rosa', city:'Belo Horizonte - MG', label:'assinou'},
-        {name:'Rodrigo Pereira', city:'Rio de Janeiro - RJ', label:'renovou'},
-      ];
-      let idx = 0;
-      function showSample(){
-        container.innerHTML = '';
-        const n = sample[idx % sample.length];
-        const el = document.createElement('div');
-        el.className = 'notif show';
-        el.innerHTML = `<div style="width:10px;height:10px;border-radius:50%;background:#25D366;margin-right:8px"></div>
-                        <div><strong style="color:var(--accent)">${n.name}</strong><div style="font-size:0.9rem;color:#cfcfcf">${n.city}</div><div style="color:#9fe29f;font-weight:700;margin-top:6px">${n.label}</div></div>`;
-        container.appendChild(el);
-        setTimeout(()=>{ el.style.animation = 'slideOut .35s ease forwards'; setTimeout(()=>el.remove(),360)}, NOTIF_DISPLAY);
-        idx++;
-        setTimeout(showSample, NOTIF_DISPLAY + NOTIF_GAP);
-      }
-      setTimeout(showSample, 1500);
-    })();
-  </script>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
